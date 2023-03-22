@@ -4,7 +4,7 @@
 
 (http://ec2-54-89-205-122.compute-1.amazonaws.com)
 
-![MySql Server Instance](./Images/msqr.png)
+![MySql Server Instance](./Images/msqr.PNG)
 
 `sudo apt install apache2`
 
@@ -12,31 +12,34 @@ b Create MySql Client
 
 (http://ec2-18-234-102-46.compute-1.amazonaws.com)
 
-![MySql Client Instance](./Images/mclt.png)
+![MySql Client Instance](./Images/mclt.PNG)
 
 `sudo apt install apache2`
 
 2. In 1.a install Mysql Server
+
 `sudo apt install mysql-server`
 
-![Installed apache2 and mysql server](./Images/ms.png)
+![Installed apache2 and mysql server](./Images/ms.PNG)
 
 3. In 1.b install Mysql Client
+
 `sudo apt install mysql-client`
 
-![Installed apache2 and mysql client](./Images/mc.png)
+![Installed apache2 and mysql client](./Images/mc.PNG)
 
 4. Create Inbound rule security Group with TCP port 3306 in Mysql Server
+
 b connect mysql client on mysql server
 
-![Inbound rule addedd for TCP Port 3306](./Images/port.png)
+![Inbound rule addedd for TCP Port 3306](./Images/port.PNG)
 
 -`sudo mysql_secure_installation`
 OPEN MYSQL utility
 `sudo mysql`
 CREATE USER 'remote_user'@'% IDENTIFIED WITH mysql_native_passowrd BY 'password';
 
-![User Created](./Images/user.png)
+![User Created](./Images/user.PNG)
 
 CREATE DATABASE test-db;
 
@@ -44,31 +47,35 @@ CREATE DATABASE test-db;
 
 GRANT ALL ON test_db.* To 'remot_user'@'%'WITH GRANT OPTION;
 
-![Grant all to db](./Images/grant.png)
+![Grant all to db](./Images/grant.PNG)
 
 FLUSH PRIVILEGEs;
 
-![Flush privileges](./Images/flush.png)
+![Flush privileges](./Images/flush.PNG)
 exit;
 
 5. Configure MySQL server to allow connections from remote hosts
+
 `sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf`
 
-![/mysqld.cnf](./Images/blocker.png)
+![/mysqld.cnf](./Images/blocker.PNG)
 
 - Replace '127.0.0.1' to '0.0.0.0'
 bind-address    =0.0.0.0
 
-![Modify Bind Address](./Images/bind.png)
+![Modify Bind Address](./Images/bind.PNG)
 
 `sudo systemctl restart mysql`
 
 6. On MySql client, connect remotely to Mysql Server without using ssh.Use mysql utility
+
 -Inbound Role for Mysql/Aurora added
 
 `sudo mysql -u remote_user -h 172.31.95.177 -p`
-![Client connected](./Images/client.png)
+
+![Client connected](./Images/client.PNG)
+
 7. Confirm connection
 `show databases;`
 
-![Databases](./Images/show.png)
+![Databases](./Images/show.PNG)
